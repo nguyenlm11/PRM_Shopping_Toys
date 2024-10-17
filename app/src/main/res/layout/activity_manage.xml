@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center_horizontal"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:id="@+id/manage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:text="Admin Management Panel"
+        android:textSize="24sp"
+        android:textStyle="bold" />
+
+    <!-- Nút để quản lý khách hàng -->
+    <Button
+        android:id="@+id/manage_customer_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:text="Manage Customers" />
+
+    <!-- Nút để quản lý đồ chơi (Toys) -->
+    <Button
+        android:id="@+id/manage_toy_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Manage Toys" />
+
+    <!-- Nút để quản lý danh mục (Categories) -->
+    <Button
+        android:id="@+id/manage_category_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="Manage Categories" />
+
+    <!-- Nút để đăng xuất -->
+    <Button
+        android:id="@+id/logout_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:background="@color/design_default_color_error"
+        android:text="Logout"
+        android:textColor="@android:color/white" />
+</LinearLayout>

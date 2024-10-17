@@ -3,7 +3,7 @@ plugins {
 }
 
 android {
-    namespace 'com.shopping_toys'
+    namespace 'com.prm_shopping_toys'
     compileSdk 34
 
     viewBinding {
@@ -11,7 +11,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.shopping_toys"
+        applicationId "com.prm_shopping_toys"
         minSdk 24
         targetSdk 34
         versionCode 1
