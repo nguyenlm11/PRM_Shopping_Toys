@@ -1,6 +1,6 @@
 package com.prm_shopping_toys.api;
 
-import com.shopping_toys.model.Category;
+import com.prm_shopping_toys.model.Category;
 
 import java.util.List;
 
