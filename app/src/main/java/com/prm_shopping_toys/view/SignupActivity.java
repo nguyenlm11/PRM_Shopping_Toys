@@ -22,7 +22,7 @@ public class SignupActivity extends AppCompatActivity implements UserView {
         binding = ActivitySignupBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        presenter = new UserPresenter(this);
+        presenter = new UserPresenter(this, this);
 
         binding.signupButton.setOnClickListener(v -> {
             String username = binding.username.getText().toString();

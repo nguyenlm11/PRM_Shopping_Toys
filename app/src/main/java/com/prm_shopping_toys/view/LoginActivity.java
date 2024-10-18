@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements UserView {
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        presenter = new UserPresenter(this);
+        presenter = new UserPresenter(this, this);
 
         // Login button click listener
         binding.loginButton.setOnClickListener(v -> {
