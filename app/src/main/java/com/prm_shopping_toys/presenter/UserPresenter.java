@@ -1,5 +1,7 @@
 package com.prm_shopping_toys.presenter;
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.util.Log;
 
 import com.prm_shopping_toys.api.UserApi;
@@ -15,10 +17,12 @@ import retrofit2.Response;
 
 public class UserPresenter {
     private UserView view;
+    private Context context;
     private UserApi userApi;
 
-    public UserPresenter(UserView view) {
+    public UserPresenter(UserView view, Context context) {
         this.view = view;
+        this.context = context;
         this.userApi = ApiClient.getClient().create(UserApi.class);
     }
 
@@ -62,6 +66,8 @@ public class UserPresenter {
                         JSONObject jsonObject = new JSONObject(result);
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
+                            int userId = jsonObject.getInt("user_id");
+                            saveUserId(userId);
                             view.onLoginSuccess(result);
                         } else {
                             String message = jsonObject.getString("message");
@@ -80,5 +86,17 @@ public class UserPresenter {
                 view.onError(t.getMessage());
             }
         });
+    }
+
+    private void saveUserId(int userId) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("user_id", userId);
+        editor.apply();
+    }
+
+    public int getCurrentUserId() {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        return sharedPreferences.getInt("user_id", -1);
     }
 }
