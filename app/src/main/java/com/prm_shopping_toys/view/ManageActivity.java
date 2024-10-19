@@ -20,16 +20,16 @@ public class ManageActivity extends AppCompatActivity {
         binding = ActivityManageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-//        // Manage Customers Button click event
-//        binding.manageCustomerButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ManageActivity.this, ManageCustomerActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        // Manage Customers Button click event
+        binding.manageCustomerButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ManageActivity.this, ManageCustomerActivity.class);
+                startActivity(intent);
+            }
+        });
 //
-//        // Manage Toys Button click event
+        // Manage Toys Button click event
 //        binding.manageToyButton.setOnClickListener(new View.OnClickListener() {
 //            @Override
 //            public void onClick(View v) {
