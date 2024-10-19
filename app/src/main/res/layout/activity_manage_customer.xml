@@ -8,10 +8,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:paddingBottom="16dp"
+        android:paddingBottom="20dp"
         android:text="Manage Customer"
-        android:textSize="24sp"
-        android:textStyle="bold" />
+        android:textSize="30dp"
+        android:textStyle="bold|italic"
+        android:textColor="#ff0000"/>
 
     <ListView
         android:id="@+id/customer_list_view"
