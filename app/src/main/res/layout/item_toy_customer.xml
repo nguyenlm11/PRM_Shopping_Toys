@@ -3,13 +3,16 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
-    android:background="@drawable/item_background"
-    android:orientation="vertical">
+    android:background="@drawable/item_background1"
+    android:orientation="vertical"
+    android:padding="12dp">
 
     <ImageView
         android:id="@+id/toy_image"
         android:layout_width="match_parent"
         android:layout_height="200dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="4dp"
         android:scaleType="centerCrop" />
 
     <TextView
@@ -17,31 +20,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
-        android:textSize="16sp"
+        android:text="Toy Name"
+        android:textColor="@color/primaryTextColor"
+        android:textSize="18sp"
         android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center">
+        android:layout_marginTop="4dp"
+        android:gravity="center"
+        android:orientation="horizontal">
 
         <TextView
             android:id="@+id/toy_category"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:layout_marginRight="70dp"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:layout_marginEnd="16dp"
+            android:text="Category"
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="14sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/toy_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:textColor="#408325"
-            android:textStyle="bold"
-            android:textSize="14sp" />
+            android:text="$29.99"
+            android:textColor="@color/priceColor"
+            android:textSize="16sp"
+            android:textStyle="bold" />
     </LinearLayout>
 
     <Button
@@ -49,6 +57,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="8dp"
-        android:text="Add to Cart" />
+        android:layout_marginTop="12dp"
+        android:backgroundTint="@color/buttonColor"
+        android:elevation="6dp"
+        android:padding="8dp"
+        android:text="Add to Cart"
+        android:textColor="@android:color/white" />
 </LinearLayout>
