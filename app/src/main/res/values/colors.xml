@@ -6,4 +6,7 @@
     <color name="secondaryTextColor">#555555</color>
     <color name="priceColor">#E53935</color>
     <color name="buttonColor">#FF5722</color>
+    <color name="colorPrimary">#3F51B5</color> <!-- Màu xanh tím -->
+    <color name="colorAccent">#FF4081</color> <!-- Màu hồng nhạt -->
+    <color name="colorPrimaryDark">#303F9F</color> <!-- Màu xanh đậm -->
 </resources>
