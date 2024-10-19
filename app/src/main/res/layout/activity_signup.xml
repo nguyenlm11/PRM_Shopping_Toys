@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F9F9FF"
+    android:background="@drawable/gradient_background"
     android:orientation="vertical"
     android:padding="32dp">
 
@@ -13,7 +13,7 @@
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:text="Welcome to Shopping Toys"
-        android:textColor="#000000"
+        android:textColor="#FFFFFF"
         android:textSize="28sp"
         android:textStyle="bold" />
 
@@ -24,7 +24,7 @@
         android:layout_marginBottom="32dp"
         android:gravity="center"
         android:text="Sign Up"
-        android:textColor="#C5B4FF"
+        android:textColor="#FFFFFF"
         android:textSize="24sp"
         android:textStyle="bold" />
 
@@ -38,6 +38,7 @@
         android:background="@drawable/edittext_background"
         android:hint="Username"
         android:inputType="text"
+        android:textColorHint="#ededed"
         android:padding="16dp" />
 
     <!-- Password Input -->
@@ -49,6 +50,7 @@
         android:layout_marginBottom="16dp"
         android:background="@drawable/edittext_background"
         android:hint="Password"
+        android:textColorHint="#ededed"
         android:inputType="textPassword"
         android:padding="16dp" />
 
@@ -61,6 +63,7 @@
         android:layout_marginBottom="32dp"
         android:background="@drawable/edittext_background"
         android:hint="Confirm Password"
+        android:textColorHint="#ededed"
         android:inputType="textPassword"
         android:padding="16dp" />
 
