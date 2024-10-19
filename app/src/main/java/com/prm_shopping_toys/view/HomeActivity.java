@@ -13,7 +13,7 @@ import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.databinding.ActivityHomeBinding;
 import com.prm_shopping_toys.model.Category;
 import com.prm_shopping_toys.model.Toy;
-//import com.prm_shopping_toys.presenter.CartPresenter;
+import com.prm_shopping_toys.presenter.CartPresenter;
 import com.prm_shopping_toys.presenter.CategoryPresenter;
 import com.prm_shopping_toys.presenter.ToyPresenter;
 import com.prm_shopping_toys.presenter.UserPresenter;
@@ -51,34 +51,34 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
         categoryPresenter = new CategoryPresenter(this);
 
         // Thiết lập RecyclerView với GridLayoutManager
-//        binding.productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
-//        adapter = new ToyCustomerAdapter(this, toyList, categoryMap, toy -> addToCart(toy), toy -> showToyDetail(toy));
-//        binding.productRecyclerView.setAdapter(adapter);
+        binding.productRecyclerView.setLayoutManager(new GridLayoutManager(this, 2));
+        adapter = new ToyCustomerAdapter(this, toyList, categoryMap, toy -> addToCart(toy), toy -> showToyDetail(toy));
+        binding.productRecyclerView.setAdapter(adapter);
 
         // Tải danh mục
         categoryPresenter.getCategories();
     }
 
-//    private void addToCart(Toy toy) {
-//        int userId = userPresenter.getCurrentUserId();
-//        if (userId != -1) {
-//            CartPresenter cartPresenter = new CartPresenter(this);
-//            cartPresenter.addToCart(userId, toy.getId());
-//        } else {
-//            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
-//        }
-//    }
-//
-//    private void showToyDetail(Toy toy) {
-//        Intent intent = new Intent(HomeActivity.this, ToyDetailActivity.class);
-//        intent.putExtra("toy_image", toy.getImage());
-//        intent.putExtra("toy_name", toy.getName());
-//        intent.putExtra("toy_price", toy.getPrice());
-//        String categoryName = categoryMap.getOrDefault(toy.getCategoryId(), "No Category");
-//        intent.putExtra("toy_category", categoryName);
-//        intent.putExtra("toy_description", toy.getDescription());
-//        startActivity(intent);
-//    }
+    private void addToCart(Toy toy) {
+        int userId = userPresenter.getCurrentUserId();
+        if (userId != -1) {
+            CartPresenter cartPresenter = new CartPresenter(this);
+            cartPresenter.addToCart(userId, toy.getId());
+        } else {
+            Toast.makeText(this, "User not logged in!", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void showToyDetail(Toy toy) {
+        Intent intent = new Intent(HomeActivity.this, ToyDetailActivity.class);
+        intent.putExtra("toy_image", toy.getImage());
+        intent.putExtra("toy_name", toy.getName());
+        intent.putExtra("toy_price", toy.getPrice());
+        String categoryName = categoryMap.getOrDefault(toy.getCategoryId(), "No Category");
+        intent.putExtra("toy_category", categoryName);
+        intent.putExtra("toy_description", toy.getDescription());
+        startActivity(intent);
+    }
 
     @Override
     public void onCategoriesLoaded(List<Category> categories) {

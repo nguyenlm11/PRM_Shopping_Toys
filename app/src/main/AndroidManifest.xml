@@ -2,7 +2,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <uses-permission android:name="android.permission.INTERNET" />
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+
     <application
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
@@ -13,6 +15,15 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PRM_Shopping_Toys"
         tools:targetApi="31">
+        <provider
+            android:name="androidx.core.content.FileProvider"
+            android:authorities="${applicationId}.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
         <!--  Khai báo LoginActivity  -->
         <activity
             android:name=".view.LoginActivity"
@@ -22,15 +33,12 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <!--  Khai báo SignupActivity  -->
         <activity
             android:name=".view.SignupActivity"
             android:exported="true" />
-        <!--  Khai báo HomeActivity cho khách hàng  -->
         <activity
             android:name=".view.HomeActivity"
             android:exported="true" />
-        <!--  Khai báo ManageActivity cho quản trị viên  -->
         <activity
             android:name=".view.ManageActivity"
             android:exported="true" />
@@ -40,18 +48,26 @@
         <activity
             android:name=".view.ManageToyActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".view.ManageCategoryActivity"-->
-<!--            android:exported="true" />-->
-        <!--  Khai báo AddProductActivity cho quản trị viên  -->
+        <activity
+            android:name=".view.ManageCategoryActivity"
+            android:exported="true" />
         <activity
             android:name=".view.AddProductActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".view.AddCategoryActivity"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name=".view.AddCategoryActivity"
+            android:exported="true" />
         <activity
             android:name=".view.EditProductActivity"
             android:exported="true" />
+        <activity
+            android:name=".view.ToyDetailActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.CartActivity"
+            android:exported="true" />
+<!--        <activity-->
+<!--            android:name=".view.QRCodeActivity"-->
+<!--            android:exported="true" />-->
     </application>
 </manifest>
