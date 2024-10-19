@@ -1,7 +1,5 @@
 package com.prm_shopping_toys.presenter;
 
-import static android.content.ContentValues.TAG;
-
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -35,7 +33,6 @@ public class UserPresenter {
                 if (response.isSuccessful()) {
                     try {
                         String result = response.body().string();
-                        Log.d(TAG, "Signup Response: " + result);
                         JSONObject jsonObject = new JSONObject(result);
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
@@ -71,6 +68,7 @@ public class UserPresenter {
                         if (status.equals("success")) {
                             int userId = jsonObject.getInt("user_id");
                             saveUserId(userId);
+                            saveUserName(username);
                             view.onLoginSuccess(result);
                         } else {
                             String message = jsonObject.getString("message");
@@ -95,6 +93,13 @@ public class UserPresenter {
         SharedPreferences sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("user_id", userId);
+        editor.apply();
+    }
+
+    private void saveUserName(String userName) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString("username", userName);
         editor.apply();
     }
 
