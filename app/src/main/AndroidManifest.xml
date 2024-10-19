@@ -37,21 +37,21 @@
         <activity
             android:name=".view.ManageCustomerActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".view.ManageToyActivity"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name=".view.ManageToyActivity"
+            android:exported="true" />
 <!--        <activity-->
 <!--            android:name=".view.ManageCategoryActivity"-->
 <!--            android:exported="true" />-->
-<!--        &lt;!&ndash;  Khai báo AddProductActivity cho quản trị viên  &ndash;&gt;-->
-<!--        <activity-->
-<!--            android:name=".view.AddProductActivity"-->
-<!--            android:exported="true" />-->
+        <!--  Khai báo AddProductActivity cho quản trị viên  -->
+        <activity
+            android:name=".view.AddProductActivity"
+            android:exported="true" />
 <!--        <activity-->
 <!--            android:name=".view.AddCategoryActivity"-->
 <!--            android:exported="true" />-->
-<!--        <activity-->
-<!--            android:name=".view.EditProductActivity"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name=".view.EditProductActivity"
+            android:exported="true" />
     </application>
 </manifest>
