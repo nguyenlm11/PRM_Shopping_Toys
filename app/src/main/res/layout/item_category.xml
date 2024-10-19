@@ -14,9 +14,7 @@
 
     <Button
         android:id="@+id/delete_category_button"
-        android:layout_width="70dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@android:color/transparent"
-        android:drawableRight="@drawable/icon_delete"
-        />
+        android:text="Delete" />
 </LinearLayout>
