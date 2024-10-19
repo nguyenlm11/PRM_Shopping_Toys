@@ -1,5 +1,7 @@
 package com.prm_shopping_toys.presenter;
 
+import static android.content.ContentValues.TAG;
+
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.util.Log;
@@ -33,6 +35,7 @@ public class UserPresenter {
                 if (response.isSuccessful()) {
                     try {
                         String result = response.body().string();
+                        Log.d(TAG, "Signup Response: " + result);
                         JSONObject jsonObject = new JSONObject(result);
                         String status = jsonObject.getString("status");
                         if (status.equals("success")) {
