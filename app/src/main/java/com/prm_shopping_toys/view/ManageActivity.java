@@ -29,14 +29,14 @@ public class ManageActivity extends AppCompatActivity {
             }
         });
 //
-        // Manage Toys Button click event
-//        binding.manageToyButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ManageActivity.this, ManageToyActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+//         Manage Toys Button click event
+        binding.manageToyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ManageActivity.this, ManageToyActivity.class);
+                startActivity(intent);
+            }
+        });
 //
 //        // Manage Categories Button click event
 //        binding.manageCategoryButton.setOnClickListener(new View.OnClickListener() {
