@@ -3,14 +3,20 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="8dp"
+    android:background="@drawable/cart_item_background"
+    android:layout_marginBottom="8dp"
+    android:gravity="center_vertical"
+    android:clipToPadding="false">
 
     <ImageView
         android:id="@+id/cart_toy_image"
         android:layout_width="80dp"
         android:layout_height="80dp"
         android:layout_marginEnd="8dp"
-        android:scaleType="centerCrop" />
+        android:scaleType="centerCrop"
+        android:background="@drawable/image_border"
+        android:padding="4dp" />
 
     <LinearLayout
         android:layout_width="0dp"
@@ -23,24 +29,31 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="16sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:textColor="#3F51B5" />
 
         <TextView
             android:id="@+id/cart_toy_price"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="#FF5722" />
 
         <TextView
             android:id="@+id/cart_toy_quantity"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="14sp" />
+            android:textSize="14sp"
+            android:textColor="#757575" />
 
         <Button
             android:id="@+id/remove_button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Remove" />
+            android:text="Remove"
+            android:textColor="@android:color/white"
+            android:backgroundTint="@android:color/holo_red_light"
+            android:paddingStart="16dp"
+            android:paddingEnd="16dp"/>
     </LinearLayout>
 </LinearLayout>
