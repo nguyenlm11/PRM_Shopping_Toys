@@ -24,6 +24,7 @@ public class SignupActivity extends AppCompatActivity implements UserView {
 
         presenter = new UserPresenter(this, this);
 
+
         binding.signupButton.setOnClickListener(v -> {
             String username = binding.username.getText().toString();
             String password = binding.password.getText().toString();
