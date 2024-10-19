@@ -33,9 +33,9 @@
         <activity
             android:name=".view.ManageActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".view.ManageCustomerActivity"-->
-<!--            android:exported="true" />-->
+        <activity
+            android:name=".view.ManageCustomerActivity"
+            android:exported="true" />
 <!--        <activity-->
 <!--            android:name=".view.ManageToyActivity"-->
 <!--            android:exported="true" />-->
