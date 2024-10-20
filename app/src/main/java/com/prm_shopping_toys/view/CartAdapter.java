@@ -61,7 +61,7 @@ public class CartAdapter extends BaseAdapter {
 
         Glide.with(context).load(cartItem.getToy().getImage()).into(toyImage);
         toyName.setText(cartItem.getToy().getName());
-        toyPrice.setText(String.format("$%.2f", cartItem.getToy().getPrice()));
+        toyPrice.setText(String.format("%.0f VNĐ", cartItem.getToy().getPrice()));
         toyQuantity.setText("Quantity: " + cartItem.getQuantity());
 
         // Xử lý sự kiện nhấn nút xóa

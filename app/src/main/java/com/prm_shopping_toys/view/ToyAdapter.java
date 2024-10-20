@@ -56,7 +56,7 @@ public class ToyAdapter extends BaseAdapter {
         TextView toyNameTextView = convertView.findViewById(R.id.toy_name);
         TextView toyPriceTextView = convertView.findViewById(R.id.toy_price);
         toyNameTextView.setText(toy.getName());
-        toyPriceTextView.setText(String.format("%.2f VNĐ", toy.getPrice()));
+        toyPriceTextView.setText(String.format("%.0f VNĐ", toy.getPrice()));
 
         // Delete button functionality
         Button deleteButton = convertView.findViewById(R.id.delete_button);
