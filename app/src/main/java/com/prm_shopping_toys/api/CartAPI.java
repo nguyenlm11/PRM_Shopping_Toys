@@ -31,4 +31,11 @@ public interface CartAPI {
             @Field("user_id") int userId,
             @Field("toy_id") int toyId
     );
+
+    @FormUrlEncoded
+    @POST("clear_cart.php")
+    Call<ResponseBody> clearCart(
+            @Field("user_id") int userId
+    );
+
 }
