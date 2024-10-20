@@ -84,15 +84,28 @@ public class CartActivity extends AppCompatActivity {
     private void checkout() {
         String userName = getCurrentUserName();
         double totalPrice = calculateTotalPrice(cartList);
-
         // Truyền danh sách Cart đến OrderPresenter
         String filePath = orderPresenter.createOrderBill(userName, totalPrice, cartList);
         if (filePath != null) {
-            openPDF(filePath);
+            // Xóa giỏ hàng sau khi thanh toán thành công
+            cartPresenter.clearCart(getCurrentUserId(), new CartPresenter.CartCallback() {
+                @Override
+                public void onSuccess(List<Cart> cartItems) {
+                    cartList.clear(); // Xóa danh sách giỏ hàng trên UI
+                    cartAdapter.notifyDataSetChanged(); // Cập nhật adapter
+                    openPDF(filePath); // Mở hóa đơn PDF
+                }
+
+                @Override
+                public void onFailure(String errorMessage) {
+                    Toast.makeText(CartActivity.this, errorMessage, Toast.LENGTH_SHORT).show();
+                }
+            });
         } else {
             Toast.makeText(this, "Lỗi khi tạo hóa đơn PDF", Toast.LENGTH_SHORT).show();
         }
     }
+
 
     private void openPDF(String filePath) {
         File file = new File(filePath);

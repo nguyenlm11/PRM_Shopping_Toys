@@ -78,6 +78,25 @@ public class CartPresenter {
         });
     }
 
+    public void clearCart(int userId, CartCallback callback) {
+        cartAPI.clearCart(userId).enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (response.isSuccessful()) {
+                    callback.onSuccess(null);
+                    Toast.makeText(context, "Giỏ hàng đã được xóa!", Toast.LENGTH_SHORT).show();
+                } else {
+                    callback.onFailure("Xóa giỏ hàng thất bại!");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                callback.onFailure("Lỗi kết nối: " + t.getMessage());
+            }
+        });
+    }
+
     public interface CartCallback {
         void onSuccess(List<Cart> cartItems);
 
