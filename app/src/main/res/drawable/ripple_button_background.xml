@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="#E91E63"> <!-- Màu khi nhấn -->
+    <item>
+        <shape>
+            <solid android:color="#FF4081" /> <!-- Màu mặc định -->
+            <corners android:radius="16dp" />
+        </shape>
+    </item>
+</ripple>

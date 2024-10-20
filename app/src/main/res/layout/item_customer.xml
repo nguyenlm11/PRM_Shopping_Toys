@@ -2,18 +2,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="horizontal"
-    android:padding="8dp">
+    android:padding="12dp"
+    android:background="@drawable/customer_item_background">
 
     <TextView
         android:id="@+id/customer_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        android:textSize="16sp" />
+        android:textSize="18sp"
+        android:textColor="#333333"
+        android:textStyle="bold"
+        android:paddingEnd="12dp"
+        android:gravity="center_vertical" />
 
     <Button
         android:id="@+id/status_button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Deactivate" />
+        android:text="Deactivate"
+        android:textColor="#FFFFFF"
+        android:backgroundTint="@drawable/rounded_button"
+        android:padding="8dp" />
 </LinearLayout>

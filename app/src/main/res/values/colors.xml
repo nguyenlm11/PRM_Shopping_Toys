@@ -9,4 +9,5 @@
     <color name="colorPrimary">#3F51B5</color> <!-- Màu xanh tím -->
     <color name="colorAccent">#FF4081</color> <!-- Màu hồng nhạt -->
     <color name="colorPrimaryDark">#303F9F</color> <!-- Màu xanh đậm -->
+
 </resources>
