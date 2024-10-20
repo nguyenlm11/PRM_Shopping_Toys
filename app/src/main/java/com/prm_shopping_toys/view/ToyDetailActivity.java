@@ -44,9 +44,9 @@ public class ToyDetailActivity extends AppCompatActivity {
                     .into(toyImageView);
         }
 
-        toyNameTextView.setText(name != null ? name : "No Name Available");
-        toyPriceTextView.setText(String.format("%.0f VNĐ", price));
+        toyNameTextView.setText("Toy Name: " + (name != null ? name : "No Name Available"));
+        toyPriceTextView.setText(String.format("Price: %.0f VNĐ", + price));
         toyCategoryTextView.setText("Category: " + (category != null ? category : "Unknown"));
-        toyDescriptionTextView.setText(description != null ? description : "No Description Available");
+        toyDescriptionTextView.setText("Description: " + (description != null ? description : "No Description Available"));
     }
 }
