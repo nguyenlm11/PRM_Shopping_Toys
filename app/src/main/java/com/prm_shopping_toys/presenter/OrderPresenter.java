@@ -5,7 +5,6 @@ import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -16,6 +15,7 @@ import com.itextpdf.kernel.pdf.PdfWriter;
 import com.itextpdf.layout.Document;
 import com.itextpdf.layout.element.Image;
 import com.itextpdf.layout.element.Paragraph;
+import com.itextpdf.layout.property.TextAlignment;
 import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.api.OrderAPI;
 import com.prm_shopping_toys.model.Cart;
@@ -47,23 +47,22 @@ public class OrderPresenter {
 
     public String createOrderBill(String userName, double totalPrice, List<Cart> items) {
         try {
-            String filePath = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/OrderBill.pdf";
+            String filePath = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) + "/OrderBill.pdf";
             File file = new File(filePath);
             PdfWriter writer = new PdfWriter(new FileOutputStream(file));
             PdfDocument pdfDocument = new PdfDocument(writer);
-            com.itextpdf.layout.Document document = new Document(pdfDocument);
+            Document document = new Document(pdfDocument);
 
-            document.add(new Paragraph("Hóa đơn thanh toán").setBold().setFontSize(20));
-            document.add(new Paragraph("Tên khách hàng: " + userName));
-            document.add(new Paragraph("Tổng tiền: " + totalPrice + " VNĐ"));
+            document.add(new Paragraph("Payment Invoice").setBold().setFontSize(20).setTextAlignment(TextAlignment.CENTER));
+            document.add(new Paragraph("Customer name: " + userName));
+            document.add(new Paragraph("Total amount: " + totalPrice + " VND"));
 
-            document.add(new Paragraph("Chi tiết đơn hàng:"));
+            document.add(new Paragraph("Order details:").setBold().setFontSize(15));
             for (Cart item : items) {
                 String toyName = item.getToy().getName();
                 int quantity = item.getQuantity();
                 double price = item.getToy().getPrice();
-
-                document.add(new Paragraph(toyName + " - Giá: " + price + " VNĐ - Số lượng: " + quantity));
+                document.add(new Paragraph("x" + quantity + " - " + toyName + " - Price: " + price * quantity + " VND"));
             }
 
             Bitmap qrBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.qrcode_bank);
@@ -79,8 +78,7 @@ public class OrderPresenter {
             uploadOrderToServer(filePath, userName, totalPrice, items);
             return filePath;
         } catch (IOException e) {
-            Log.e("OrderPresenter", "Error creating PDF: " + e.getMessage());
-            Toast.makeText(context, "Lỗi khi tạo hóa đơn PDF", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Error creating PDF", Toast.LENGTH_SHORT).show();
             return null;
         }
     }
@@ -91,7 +89,6 @@ public class OrderPresenter {
             RequestBody pdfRequestBody = RequestBody.create(MediaType.parse("application/pdf"), pdfFile);
             MultipartBody.Part pdfPart = MultipartBody.Part.createFormData("bill_pdf", pdfFile.getName(), pdfRequestBody);
 
-            // Sử dụng RequestBody cho các trường dữ liệu khác
             RequestBody userIdBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(getCurrentUserId()));
             RequestBody userNameBody = RequestBody.create(MediaType.parse("text/plain"), userName);
             RequestBody totalPriceBody = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(totalPrice));
@@ -101,7 +98,6 @@ public class OrderPresenter {
             }
             RequestBody itemsBody = RequestBody.create(MediaType.parse("text/plain"), new Gson().toJson(itemList));
 
-            // Gọi API
             orderAPI.createOrder(
                     userIdBody,
                     totalPriceBody,
@@ -111,19 +107,19 @@ public class OrderPresenter {
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     if (response.isSuccessful()) {
-                        Toast.makeText(context, "Đơn hàng đã được tạo thành công!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Order created successfully", Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(context, "Lỗi khi tạo đơn hàng!", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(context, "Error creating order", Toast.LENGTH_SHORT).show();
                     }
                 }
 
                 @Override
                 public void onFailure(Call<ResponseBody> call, Throwable t) {
-                    Toast.makeText(context, "Lỗi kết nối: " + t.getMessage(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(context, "Connection error: " + t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
         } else {
-            Toast.makeText(context, "Không tìm thấy file hóa đơn!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "Invoice file not found", Toast.LENGTH_SHORT).show();
         }
     }
 

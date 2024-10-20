@@ -14,7 +14,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.PRM_Shopping_Toys"
+        android:usesCleartextTraffic="true"
         tools:targetApi="31">
+
         <provider
             android:name="androidx.core.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"
@@ -24,7 +26,8 @@
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
         </provider>
-        <!--  Khai báo LoginActivity  -->
+
+        <!-- Khai báo LoginActivity -->
         <activity
             android:name=".view.LoginActivity"
             android:exported="true">
@@ -66,8 +69,6 @@
         <activity
             android:name=".view.CartActivity"
             android:exported="true" />
-<!--        <activity-->
-<!--            android:name=".view.QRCodeActivity"-->
-<!--            android:exported="true" />-->
+        <!-- <activity android:name=".view.QRCodeActivity" android:exported="true" /> -->
     </application>
 </manifest>
