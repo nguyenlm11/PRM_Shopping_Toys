@@ -1,6 +1,6 @@
 package com.prm_shopping_toys.view;
 
-import android.Manifest;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -10,8 +10,7 @@ import android.os.Bundle;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
+import androidx.core.content.FileProvider;
 
 import com.prm_shopping_toys.databinding.ActivityCartBinding;
 import com.prm_shopping_toys.model.Cart;
@@ -32,12 +31,6 @@ public class CartActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Kiểm tra quyền ghi file
-        if (ContextCompat.checkSelfPermission(this, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-                != PackageManager.PERMISSION_GRANTED) {
-            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE}, 1);
-        }
 
         binding = ActivityCartBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -84,16 +77,14 @@ public class CartActivity extends AppCompatActivity {
     private void checkout() {
         String userName = getCurrentUserName();
         double totalPrice = calculateTotalPrice(cartList);
-        // Truyền danh sách Cart đến OrderPresenter
         String filePath = orderPresenter.createOrderBill(userName, totalPrice, cartList);
         if (filePath != null) {
-            // Xóa giỏ hàng sau khi thanh toán thành công
             cartPresenter.clearCart(getCurrentUserId(), new CartPresenter.CartCallback() {
                 @Override
                 public void onSuccess(List<Cart> cartItems) {
-                    cartList.clear(); // Xóa danh sách giỏ hàng trên UI
-                    cartAdapter.notifyDataSetChanged(); // Cập nhật adapter
-                    openPDF(filePath); // Mở hóa đơn PDF
+                    cartList.clear();
+                    cartAdapter.notifyDataSetChanged();
+                    openPDF(new File(filePath));
                 }
 
                 @Override
@@ -106,13 +97,16 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
-
-    private void openPDF(String filePath) {
-        File file = new File(filePath);
+    private void openPDF(File file) {
+        Uri fileUri = FileProvider.getUriForFile(this, getApplicationContext().getPackageName() + ".fileprovider", file);
         Intent intent = new Intent(Intent.ACTION_VIEW);
-        intent.setDataAndType(Uri.fromFile(file), "application/pdf");
-        intent.setFlags(Intent.FLAG_ACTIVITY_NO_HISTORY);
-        startActivity(Intent.createChooser(intent, "Open Bill PDF"));
+        intent.setDataAndType(fileUri, "application/pdf");
+        intent.setFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        try {
+            startActivity(Intent.createChooser(intent, "Open Bill PDF"));
+        } catch (ActivityNotFoundException e) {
+            Toast.makeText(this, "No application available to open PDF", Toast.LENGTH_SHORT).show();
+        }
     }
 
     private double calculateTotalPrice(List<Cart> cartList) {
