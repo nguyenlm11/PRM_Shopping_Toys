@@ -38,14 +38,14 @@ public class ManageActivity extends AppCompatActivity {
             }
         });
 //
-//        // Manage Categories Button click event
-//        binding.manageCategoryButton.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ManageActivity.this, ManageCategoryActivity.class);
-//                startActivity(intent);
-//            }
-//        });
+        // Manage Categories Button click event
+        binding.manageCategoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(ManageActivity.this, ManageCategoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
         // Logout Button click event
         binding.logoutButton.setOnClickListener(new View.OnClickListener() {
