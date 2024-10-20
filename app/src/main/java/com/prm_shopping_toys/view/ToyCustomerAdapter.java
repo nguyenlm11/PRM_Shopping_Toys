@@ -49,7 +49,7 @@ public class ToyCustomerAdapter extends RecyclerView.Adapter<ToyCustomerAdapter.
 
         // Thiết lập thông tin cho toy
         holder.toyNameTextView.setText(toy.getName());
-        holder.toyPriceTextView.setText(String.format("$%.2f", toy.getPrice()));
+        holder.toyPriceTextView.setText(String.format("%.0f VNĐ", toy.getPrice()));
 
         // Lấy tên danh mục từ categoryMap
         String categoryName = categoryMap.get(toy.getCategoryId());
