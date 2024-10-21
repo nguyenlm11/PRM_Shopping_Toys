@@ -4,8 +4,11 @@ import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class ApiClient {
-//    private static final String BASE_URL = "http://10.0.2.2/shopping_toys_api/";
+    // URL ở nhà
     private static final String BASE_URL = "http://192.168.2.10/shopping_toys_api/";
+
+//    URL ở NVH
+//    private static final String BASE_URL = "http://172.20.10.3/shopping_toys_api/";
 
     private static Retrofit retrofit = null;
 
