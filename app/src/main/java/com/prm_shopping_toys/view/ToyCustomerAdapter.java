@@ -16,6 +16,7 @@ import com.bumptech.glide.Glide;
 import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.model.Toy;
 
+import java.text.DecimalFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -48,8 +49,10 @@ public class ToyCustomerAdapter extends RecyclerView.Adapter<ToyCustomerAdapter.
         Toy toy = toyList.get(position);
 
         // Thiết lập thông tin cho toy
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        String formattedPrice = formatter.format(toy.getPrice()).replace(",", ".");
         holder.toyNameTextView.setText(toy.getName());
-        holder.toyPriceTextView.setText(String.format("%.0f VNĐ", toy.getPrice()));
+        holder.toyPriceTextView.setText(String.format("%s VNĐ", formattedPrice));
 
         // Lấy tên danh mục từ categoryMap
         String categoryName = categoryMap.get(toy.getCategoryId());

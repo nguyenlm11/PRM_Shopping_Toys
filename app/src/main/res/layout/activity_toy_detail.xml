@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="20dp"
     android:background="#F9F9F9">
 
     <LinearLayout
@@ -10,70 +12,151 @@
         android:orientation="vertical"
         android:padding="16dp">
 
-        <!-- Title -->
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="Toy Detail"
-            android:textSize="32dp"
-            android:textStyle="bold"
-            android:textColor="#FF5722"
-            android:layout_marginBottom="16dp" />
-
         <!-- Toy Image -->
         <ImageView
             android:id="@+id/toy_detail_image"
             android:layout_width="match_parent"
             android:layout_height="350dp"
+            android:layout_gravity="center"
             android:layout_marginBottom="16dp"
-            android:scaleType="centerCrop"
             android:background="@drawable/rounded_corner_image"
             android:elevation="8dp"
-            android:layout_gravity="center" />
+            android:scaleType="centerCrop" />
 
         <!-- Toy Name -->
         <TextView
             android:id="@+id/toy_detail_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
+            android:layout_marginBottom="10dp"
             android:text="Toy Name"
-            android:textSize="24sp"
-            android:textStyle="bold"
-            android:textColor="#3F51B5" />
-
-        <!-- Toy Price -->
-        <TextView
-            android:id="@+id/toy_detail_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="12dp"
-            android:text="Price: $29.99"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            android:textColor="#388E3C" />
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
 
         <!-- Toy Category -->
-        <TextView
-            android:id="@+id/toy_detail_category"
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginBottom="10dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="18dp"
+                android:text="Category "
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/toy_detail_category"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:text="Action Figures"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="22sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <!-- Toy Price -->
+        <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="8dp"
-            android:text="Category: Action Figures"
-            android:textSize="18sp"
-            android:textStyle="italic"
-            android:textColor="#757575" />
+            android:layout_marginBottom="20dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="53dp"
+                android:text="Price "
+                android:textColor="@color/secondaryTextColor"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/toy_detail_price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="250000 VNĐ"
+                android:textColor="@color/priceColor"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:gravity="center"
+            android:background="@drawable/rounded_background">
+
+            <Button
+                android:id="@+id/decrease_quantity_button"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="90dp"
+                android:backgroundTint="@color/backgroundGrey"
+                android:text="-"
+                android:textColor="@color/black"
+                android:textSize="24dp"
+                tools:ignore="TouchTargetSizeCheck" />
+
+            <TextView
+                android:id="@+id/quantity_text_view"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:paddingHorizontal="16dp"
+                android:text="1"
+                android:textStyle="bold"
+                android:textSize="20sp" />
+
+            <Button
+                android:id="@+id/increase_quantity_button"
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="90dp"
+                android:backgroundTint="@color/backgroundGrey"
+                android:text="+"
+                android:textColor="@color/black"
+                android:textSize="20dp"
+                tools:ignore="TouchTargetSizeCheck" />
+        </LinearLayout>
+
+        <!-- Add to cart button -->
+        <Button
+            android:id="@+id/add_to_cart_button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="12dp"
+            android:backgroundTint="@color/priceColor"
+            android:text="Add to Cart"
+            android:textColor="@color/white"
+            android:textStyle="bold" />
 
         <!-- Toy Description -->
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:layout_marginBottom="20dp"
+            android:text="Toy Description"
+            android:textColor="@color/black"
+            android:textSize="30sp"
+            android:textStyle="bold" />
+
         <TextView
             android:id="@+id/toy_detail_description"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
+            android:lineSpacingExtra="4dp"
             android:text="This is a detailed description of the toy. It includes all the interesting features and reasons why kids will love this toy!"
-            android:textSize="16sp"
-            android:textColor="#616161"
-            android:lineSpacingExtra="4dp" />
+            android:textColor="@color/secondaryTextColor"
+            android:textSize="20sp" />
+
     </LinearLayout>
+
 </ScrollView>

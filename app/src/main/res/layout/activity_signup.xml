@@ -27,7 +27,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:hint="User name"
         android:textColorHint="@color/colorPrimaryDark"
         app:boxStrokeColor="@color/black">
@@ -46,7 +46,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:hint="Password"
         android:textColorHint="@color/colorPrimaryDark"
         app:boxStrokeColor="@color/black"
@@ -65,7 +65,7 @@
     <com.google.android.material.textfield.TextInputLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:hint="Confirm password"
         android:textColorHint="@color/colorPrimaryDark"
         app:boxStrokeColor="@color/black"
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:layout_marginTop="16dp"
-        android:layout_marginBottom="32dp"
+        android:layout_marginBottom="24dp"
         android:backgroundTint="@color/priceColor"
         android:padding="15dp"
         android:text="Sign Up"
@@ -97,7 +97,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
+        android:layout_marginTop="20dp"
         android:gravity="center">
 
         <TextView
