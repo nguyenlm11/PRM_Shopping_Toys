@@ -71,6 +71,7 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
 
     private void showToyDetail(Toy toy) {
         Intent intent = new Intent(HomeActivity.this, ToyDetailActivity.class);
+        intent.putExtra("toy_id", toy.getId());
         intent.putExtra("toy_image", toy.getImage());
         intent.putExtra("toy_name", toy.getName());
         intent.putExtra("toy_price", toy.getPrice());

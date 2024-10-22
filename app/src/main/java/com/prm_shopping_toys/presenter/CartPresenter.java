@@ -24,7 +24,7 @@ public class CartPresenter {
     }
 
     public void addToCart(int userId, int toyId) {
-        cartAPI.addToCart(userId, toyId).enqueue(new Callback<ResponseBody>() {
+        cartAPI.addToCart(userId, toyId, 1).enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {

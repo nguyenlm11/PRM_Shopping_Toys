@@ -17,7 +17,8 @@ public interface CartAPI {
     @POST("add_to_cart.php")
     Call<ResponseBody> addToCart(
             @Field("user_id") int userId,
-            @Field("toy_id") int toyId
+            @Field("toy_id") int toyId,
+            @Field("quantity") int quantity
     );
 
     @GET("get_cart_items.php")

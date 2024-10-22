@@ -12,9 +12,9 @@
         android:id="@+id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
+        android:background="@color/priceColor"
         android:theme="?attr/actionBarTheme"
-        app:titleTextColor="#FFFFFF" />
+        app:titleTextColor="@color/white" />
 
     <!-- RecyclerView để hiển thị danh sách đồ chơi -->
     <androidx.recyclerview.widget.RecyclerView
