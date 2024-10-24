@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Query;
 
 public interface CartAPI {
@@ -39,4 +40,11 @@ public interface CartAPI {
             @Field("user_id") int userId
     );
 
+    @FormUrlEncoded
+    @POST("update_quantity.php")
+    Call<ResponseBody> updateCartQuantity(
+            @Field("user_id") int userId,
+            @Field("toy_id") int toyId,
+            @Field("quantity") int quantity
+    );
 }

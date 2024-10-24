@@ -4,7 +4,6 @@ import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -18,6 +17,7 @@ import com.prm_shopping_toys.presenter.CartPresenter;
 import com.prm_shopping_toys.presenter.OrderPresenter;
 
 import java.io.File;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,7 +39,7 @@ public class CartActivity extends AppCompatActivity {
         orderPresenter = new OrderPresenter(this);
 
         int userId = getCurrentUserId();
-        cartAdapter = new CartAdapter(this, cartList, cartPresenter, userId);
+        cartAdapter = new CartAdapter(this, cartList, cartPresenter, userId, this::updateTotal);
         binding.cartListView.setAdapter(cartAdapter);
 
         loadCartItems();
@@ -62,6 +62,7 @@ public class CartActivity extends AppCompatActivity {
                     cartList.clear();
                     cartList.addAll(cartItems);
                     cartAdapter.notifyDataSetChanged();
+                    updateTotal();
                 }
 
                 @Override
@@ -74,6 +75,22 @@ public class CartActivity extends AppCompatActivity {
         }
     }
 
+    private void updateTotal() {
+        int totalToys = 0;
+        double totalPrice = 0.0;
+
+        for (Cart item : cartList) {
+            totalToys += item.getQuantity();
+            totalPrice += item.getQuantity() * item.getToy().getPrice();
+        }
+
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        String formattedPrice = formatter.format(totalPrice).replace(",", ".");
+
+        binding.totalToyCount.setText(totalToys + " Toys");
+        binding.totalPriceAmount.setText(formattedPrice + " VNĐ");
+    }
+
     private void checkout() {
         String userName = getCurrentUserName();
         double totalPrice = calculateTotalPrice(cartList);
@@ -84,6 +101,7 @@ public class CartActivity extends AppCompatActivity {
                 public void onSuccess(List<Cart> cartItems) {
                     cartList.clear();
                     cartAdapter.notifyDataSetChanged();
+                    updateTotal();
                     openPDF(new File(filePath));
                 }
 
