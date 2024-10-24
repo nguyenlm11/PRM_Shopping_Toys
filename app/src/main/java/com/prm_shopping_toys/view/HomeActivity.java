@@ -43,7 +43,7 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
 
         // Thiết lập Toolbar
         setSupportActionBar(binding.toolbar);
-        getSupportActionBar().setTitle("Welcome to Shopping Toys");
+        getSupportActionBar().setTitle("Toy Store");
 
         // Khởi tạo các presenter
         userPresenter = new UserPresenter(null, this);

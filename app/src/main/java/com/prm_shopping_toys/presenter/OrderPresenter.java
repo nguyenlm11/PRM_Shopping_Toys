@@ -46,42 +46,68 @@ public class OrderPresenter {
     }
 
     public String createOrderBill(String userName, double totalPrice, List<Cart> items) {
+        String filePath = null;
         try {
-            String filePath = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) + "/OrderBill.pdf";
+            filePath = context.getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS) + "/OrderBill.pdf";
             File file = new File(filePath);
-            PdfWriter writer = new PdfWriter(new FileOutputStream(file));
-            PdfDocument pdfDocument = new PdfDocument(writer);
-            Document document = new Document(pdfDocument);
 
-            document.add(new Paragraph("Payment Invoice").setBold().setFontSize(20).setTextAlignment(TextAlignment.CENTER));
-            document.add(new Paragraph("Customer name: " + userName));
-            document.add(new Paragraph("Total amount: " + totalPrice + " VND"));
-
-            document.add(new Paragraph("Order details:").setBold().setFontSize(15));
-            for (Cart item : items) {
-                String toyName = item.getToy().getName();
-                int quantity = item.getQuantity();
-                double price = item.getToy().getPrice();
-                document.add(new Paragraph("x" + quantity + " - " + toyName + " - Price: " + price * quantity + " VND"));
+            try (FileOutputStream fos = new FileOutputStream(file)) {
+                PdfWriter writer = new PdfWriter(fos);
+                PdfDocument pdfDocument = new PdfDocument(writer);
+                Document document = new Document(pdfDocument);
+                document.setMargins(20, 20, 20, 20);
+                // Add a title for the invoice
+                document.add(new Paragraph("Payment Invoice")
+                        .setBold()
+                        .setFontSize(20)
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setMarginBottom(10));
+                // Add customer name
+                document.add(new Paragraph("Customer name: " + userName).setMarginBottom(10));
+                // Add order details section
+                document.add(new Paragraph("Order details:").setBold().setFontSize(15).setMarginBottom(5));
+                for (Cart item : items) {
+                    String toyName = item.getToy().getName();
+                    int quantity = item.getQuantity();
+                    double price = item.getToy().getPrice();
+                    // Format the price properly
+                    String formattedPrice = String.format("%,.0f", price * quantity);
+                    document.add(new Paragraph("x" + quantity + " - " + toyName + " - Price: " + formattedPrice + " VND"));
+                }
+                // Add a divider
+                document.add(new Paragraph("__________________________________________________________________")
+                        .setBold()
+                        .setFontSize(15)
+                        .setTextAlignment(TextAlignment.CENTER)
+                        .setMarginTop(10)
+                        .setMarginBottom(10));
+                // Add total amount
+                String formattedTotalPrice = String.format("%,.0f", totalPrice);
+                document.add(new Paragraph("Total amount: " + formattedTotalPrice + " VND").setBold());
+                // Add QR code if available
+                Bitmap qrBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.qrcode_bank);
+                if (qrBitmap != null) {
+                    byte[] qrBytes = getBytesFromBitmap(qrBitmap);
+                    if (qrBytes != null) {
+                        ImageData imageData = ImageDataFactory.create(qrBytes);
+                        Image qrImage = new Image(imageData);
+                        qrImage.setAutoScale(true);
+                        qrImage.setMarginTop(20);
+                        document.add(qrImage);
+                    }
+                }
+                // Close the document properly
+                document.close();
+                // Upload the file to the server
+                uploadOrderToServer(filePath, userName, totalPrice, items);
+                return filePath;
             }
-
-            Bitmap qrBitmap = BitmapFactory.decodeResource(context.getResources(), R.drawable.qrcode_bank);
-            if (qrBitmap != null) {
-                byte[] qrBytes = getBytesFromBitmap(qrBitmap);
-                ImageData imageData = ImageDataFactory.create(qrBytes);
-                Image qrImage = new Image(imageData);
-                qrImage.setAutoScale(true);
-                document.add(qrImage);
-            }
-
-            document.close();
-            uploadOrderToServer(filePath, userName, totalPrice, items);
-            return filePath;
         } catch (IOException e) {
             Toast.makeText(context, "Error creating PDF", Toast.LENGTH_SHORT).show();
             return null;
         }
     }
+
 
     private void uploadOrderToServer(String filePath, String userName, double totalPrice, List<Cart> items) {
         File pdfFile = new File(filePath);

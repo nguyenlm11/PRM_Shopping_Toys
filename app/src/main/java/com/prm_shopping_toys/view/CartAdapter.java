@@ -15,6 +15,7 @@ import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.model.Cart;
 import com.prm_shopping_toys.presenter.CartPresenter;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class CartAdapter extends BaseAdapter {
@@ -59,10 +60,12 @@ public class CartAdapter extends BaseAdapter {
         TextView toyQuantity = convertView.findViewById(R.id.cart_toy_quantity);
         Button removeButton = convertView.findViewById(R.id.remove_button);
 
+        DecimalFormat formatter = new DecimalFormat("#,###");
+        String formattedPrice = formatter.format(cartItem.getToy().getPrice()).replace(",", ".");
         Glide.with(context).load(cartItem.getToy().getImage()).into(toyImage);
         toyName.setText(cartItem.getToy().getName());
-        toyPrice.setText(String.format("%.0f VNĐ", cartItem.getToy().getPrice()));
-        toyQuantity.setText("Quantity: " + cartItem.getQuantity());
+        toyPrice.setText(String.format("%s VNĐ", formattedPrice));
+        toyQuantity.setText(Integer.toString(cartItem.getQuantity()));
 
         // Xử lý sự kiện nhấn nút xóa
         removeButton.setOnClickListener(v -> {
