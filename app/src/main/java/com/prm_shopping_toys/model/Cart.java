@@ -40,6 +40,10 @@ public class Cart {
         return quantity;
     }
 
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
     public Toy getToy() {
         return toy;
     }
