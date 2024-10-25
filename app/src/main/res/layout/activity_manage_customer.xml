@@ -10,12 +10,14 @@
         android:layout_gravity="center"
         android:paddingBottom="20dp"
         android:text="Manage Customer"
+        android:textColor="@color/colorPrimaryDark"
         android:textSize="30dp"
-        android:textStyle="bold|italic"
-        android:textColor="#ff0000"/>
+        android:textStyle="bold" />
 
     <ListView
         android:id="@+id/customer_list_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="8dp" />
 </LinearLayout>

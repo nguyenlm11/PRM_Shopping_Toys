@@ -73,10 +73,12 @@ public class LoginActivity extends AppCompatActivity implements UserView {
                     Intent intent = new Intent(LoginActivity.this, ManageActivity.class);
                     startActivity(intent);
                     Toast.makeText(this, "Welcome, Admin!", Toast.LENGTH_SHORT).show();
+                    finish();
                 } else if (role.equals("customer")) {
                     Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                     startActivity(intent);
                     Toast.makeText(this, "Welcome, Customer!", Toast.LENGTH_SHORT).show();
+                    finish();
                 }
             } else {
                 String message = jsonObject.getString("message");

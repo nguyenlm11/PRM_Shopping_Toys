@@ -37,7 +37,7 @@ public class SignupActivity extends AppCompatActivity implements UserView {
             presenter.signup(username, password);
         });
 
-        binding.loginText.setOnClickListener(v -> {
+        binding.loginLink.setOnClickListener(v -> {
             Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
             startActivity(intent);
         });

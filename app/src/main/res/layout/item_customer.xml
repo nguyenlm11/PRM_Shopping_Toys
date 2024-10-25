@@ -1,27 +1,39 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@drawable/customer_item_background"
     android:orientation="horizontal"
-    android:padding="12dp"
-    android:background="@drawable/customer_item_background">
+    android:padding="10dp">
 
+    <!-- Cột số thứ tự -->
+    <TextView
+        android:id="@+id/customer_number"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="left"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <!-- Cột tên khách hàng -->
     <TextView
         android:id="@+id/customer_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:textSize="18sp"
-        android:textColor="#333333"
-        android:textStyle="bold"
-        android:paddingEnd="12dp"
-        android:gravity="center_vertical" />
+        android:layout_weight="3"
+        android:gravity="center_vertical"
+        android:textColor="@color/black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
 
+    <!-- Cột trạng thái -->
     <Button
         android:id="@+id/status_button"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:layout_weight="1.5"
+        android:padding="8dp"
         android:text="Deactivate"
-        android:textColor="#FFFFFF"
-        android:backgroundTint="@drawable/rounded_button"
-        android:padding="8dp" />
+        android:textColor="@color/white" />
 </LinearLayout>
