@@ -20,26 +20,26 @@ public class ManageActivity extends AppCompatActivity {
         binding = ActivityManageBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Manage Customers Button click event
-        binding.manageCustomerButton.setOnClickListener(new View.OnClickListener() {
+        // Manage Customers View click event
+        binding.manageCustomerView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ManageActivity.this, ManageCustomerActivity.class);
                 startActivity(intent);
             }
         });
-//
-//         Manage Toys Button click event
-        binding.manageToyButton.setOnClickListener(new View.OnClickListener() {
+
+        // Manage Toys View click event
+        binding.manageToyView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ManageActivity.this, ManageToyActivity.class);
                 startActivity(intent);
             }
         });
-//
-        // Manage Categories Button click event
-        binding.manageCategoryButton.setOnClickListener(new View.OnClickListener() {
+
+        // Manage Categories View click event
+        binding.manageCategoryView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ManageActivity.this, ManageCategoryActivity.class);
@@ -47,8 +47,8 @@ public class ManageActivity extends AppCompatActivity {
             }
         });
 
-        // Logout Button click event
-        binding.logoutButton.setOnClickListener(new View.OnClickListener() {
+        // Logout View click event
+        binding.logoutView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(ManageActivity.this, LoginActivity.class);
