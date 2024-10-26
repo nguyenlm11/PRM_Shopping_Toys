@@ -10,6 +10,7 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
+import retrofit2.http.Query;
 
 public interface ToyApi {
 
@@ -26,6 +27,12 @@ public interface ToyApi {
             @Field("price") String price,
             @Field("image") String imageUrl,
             @Field("category_id") int categoryId
+    );
+
+    //Search by name
+    @GET("search_toy.php")
+    Call<List<Toy>> searchToysByName(
+            @Query("name") String name
     );
 
     // Delete a toy by ID
