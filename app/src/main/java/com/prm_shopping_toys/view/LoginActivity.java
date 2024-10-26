@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.databinding.ActivityLoginBinding;
 import com.prm_shopping_toys.presenter.UserPresenter;
 
@@ -40,15 +41,13 @@ public class LoginActivity extends AppCompatActivity implements UserView {
         binding.signupLink.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
     }
 
     @Override
     public void onLoginSuccess(String response) {
         try {
-            // Log phản hồi từ server để kiểm tra
-            // Log.d("LoginResponse", "Response: " + response);
-
             JSONObject jsonObject = new JSONObject(response);
             String status = jsonObject.getString("status");
 

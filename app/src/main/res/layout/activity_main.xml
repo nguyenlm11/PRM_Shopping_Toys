@@ -1,73 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
     android:orientation="vertical">
 
-    <!-- Background Image -->
-    <ImageView
-        android:id="@+id/backgroundImage"
+    <FrameLayout
+        android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:scaleType="centerCrop"
-        android:src="@drawable/toyshopping_background" />
+        android:layout_weight="1" />
 
-    <!-- Text Container -->
-    <LinearLayout
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
-        android:layout_marginTop="-50dp"
-        android:background="@drawable/rounded_top_background_white"
-        android:orientation="vertical"
-        android:padding="24dp">
-
-        <!-- Title -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="8dp"
-            android:text="TOY HOBBY STORE"
-            android:textColor="@color/priceColor"
-            android:textSize="30sp"
-            android:textStyle="bold" />
-
-        <!-- Subtitle -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:paddingBottom="16dp"
-            android:text="Your gateway to the best toys for teens"
-            android:textColor="@color/black"
-            android:textSize="14sp" />
-
-        <!-- Description -->
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:paddingBottom="48dp"
-            android:text="Find the coolest model kits, collectibles, and gadgets for teens aged 16+!"
-            android:textColor="@color/secondaryTextColor"
-            android:textSize="14sp" />
-
-        <!-- Start Button -->
-        <Button
-            android:id="@+id/startButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:layout_marginBottom="16dp"
-            android:backgroundTint="@color/priceColor"
-            android:padding="16dp"
-            android:text="Start"
-            android:textColor="@android:color/white"
-            android:textSize="16sp" />
-    </LinearLayout>
+        android:layout_height="wrap_content"
+        app:menu="@menu/bottom_nav_menu" />
 </LinearLayout>

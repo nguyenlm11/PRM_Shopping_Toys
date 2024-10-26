@@ -6,6 +6,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.databinding.ActivitySignupBinding;
 import com.prm_shopping_toys.presenter.UserPresenter;
 
@@ -40,6 +41,7 @@ public class SignupActivity extends AppCompatActivity implements UserView {
         binding.loginLink.setOnClickListener(v -> {
             Intent intent = new Intent(SignupActivity.this, LoginActivity.class);
             startActivity(intent);
+            overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
         });
     }
 
