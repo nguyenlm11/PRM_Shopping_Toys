@@ -6,15 +6,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.FileProvider;
 
+import com.google.android.material.bottomnavigation.BottomNavigationView;
+import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.databinding.ActivityCartBinding;
 import com.prm_shopping_toys.model.Cart;
 import com.prm_shopping_toys.presenter.CartPresenter;
 import com.prm_shopping_toys.presenter.OrderPresenter;
+import com.prm_shopping_toys.view.HomeActivity;
+import com.prm_shopping_toys.view.OrderActivity;
+import com.prm_shopping_toys.view.LoginActivity;
 
 import java.io.File;
 import java.text.DecimalFormat;
@@ -51,6 +58,60 @@ public class CartActivity extends AppCompatActivity {
                 Toast.makeText(this, "Giỏ hàng của bạn trống!", Toast.LENGTH_SHORT).show();
             }
         });
+
+        // Thiết lập BottomNavigationView
+        setupBottomNavigation();
+
+        // Đặt mục "Cart" là mục được chọn mặc định
+        binding.bottomNavigation.setSelectedItemId(R.id.navigation_cart);
+    }
+
+    private void setupBottomNavigation() {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                int itemId = item.getItemId();
+
+                if (itemId == R.id.navigation_home) {
+                    if (!CartActivity.this.getClass().equals(HomeActivity.class)) {
+                        Intent intent = new Intent(CartActivity.this, HomeActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
+                    }
+                    return true;
+                } else if (itemId == R.id.navigation_cart) {
+                    if (!CartActivity.this.getClass().equals(CartActivity.class)) {
+                        Intent intent = new Intent(CartActivity.this, CartActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                    return true;
+                } else if (itemId == R.id.navigation_order) {
+                    if (!CartActivity.this.getClass().equals(OrderActivity.class)) {
+                        Intent intent = new Intent(CartActivity.this, OrderActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(intent);
+                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+                    }
+                    return true;
+                } else if (itemId == R.id.navigation_logout) {
+                    logoutUser();
+                    return true;
+                }
+                return false;
+            }
+        });
+    }
+
+    private void logoutUser() {
+        // Logic đăng xuất (xóa dữ liệu lưu trữ và điều hướng đến màn hình đăng nhập)
+        Toast.makeText(this, "Logout successfully", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(CartActivity.this, LoginActivity.class);
+        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
+        finish();
     }
 
     private void loadCartItems() {
@@ -144,4 +205,5 @@ public class CartActivity extends AppCompatActivity {
         SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
         return sharedPreferences.getString("username", "Unknown");
     }
+
 }
