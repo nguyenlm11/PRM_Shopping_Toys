@@ -7,6 +7,63 @@
     android:orientation="vertical"
     tools:context=".view.HomeActivity">
 
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:gravity="center"
+        android:text="Toys"
+        android:textColor="@color/priceColor"
+        android:textSize="30sp"
+        android:textStyle="bold" />
+
+    <!-- SearchView và Filter Button -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_weight="1"
+            android:background="@drawable/search_view_background"
+            android:iconifiedByDefault="false"
+            android:queryHint="Enter toy name here" />
+
+        <ImageButton
+            android:id="@+id/filter_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:background="@null"
+            android:contentDescription="Filter"
+            android:padding="10dp"
+            android:src="@drawable/ic_filter"
+            tools:ignore="TouchTargetSizeCheck" />
+
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/search_progress_bar"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:indeterminateTint="@color/priceColor"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/no_results_text_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="No results found. Try using more general keywords"
+        android:textColor="@color/secondaryTextColor"
+        android:textSize="18sp"
+        android:visibility="gone" />
+
     <!-- RecyclerView để hiển thị danh sách đồ chơi -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/product_recycler_view"
@@ -21,4 +78,5 @@
         android:layout_height="wrap_content"
         android:background="?android:attr/windowBackground"
         app:menu="@menu/bottom_nav_menu" />
+
 </LinearLayout>
