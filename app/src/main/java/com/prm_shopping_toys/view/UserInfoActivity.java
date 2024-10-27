@@ -44,6 +44,15 @@ public class UserInfoActivity extends AppCompatActivity {
             }
         });
 
+        binding.changePasswordLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(UserInfoActivity.this, ChangePasswordActivity.class);
+                startActivity(intent);
+                overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
         setupBottomNavigation();
         binding.bottomNavigation.setSelectedItemId(R.id.navigation_profile);
 

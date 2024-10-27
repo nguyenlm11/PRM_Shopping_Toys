@@ -24,20 +24,20 @@ public class LoginActivity extends AppCompatActivity implements UserView {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        // Initialize View Binding
+        // Khởi tạo View Binding
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
         presenter = new UserPresenter(this, this);
 
-        // Login button click listener
+        // Sự kiện click cho nút đăng nhập
         binding.loginButton.setOnClickListener(v -> {
             String username = binding.username.getText().toString();
             String password = binding.password.getText().toString();
             presenter.login(username, password);
         });
 
-        // Signup button click listener
+        // Sự kiện click cho nút đăng ký
         binding.signupLink.setOnClickListener(v -> {
             Intent intent = new Intent(LoginActivity.this, SignupActivity.class);
             startActivity(intent);
@@ -53,19 +53,16 @@ public class LoginActivity extends AppCompatActivity implements UserView {
 
             if (status.equals("success")) {
                 int userId = jsonObject.getInt("user_id");
+                String username = jsonObject.getString("username");
+                String password = binding.password.getText().toString(); // Lấy mật khẩu từ EditText
 
-                // Kiểm tra xem trường username có tồn tại trong JSON hay không
-                if (jsonObject.has("username")) {
-                    String username = jsonObject.getString("username");
-                    // Lưu ID và tên người dùng vào SharedPreferences
-                    SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
-                    SharedPreferences.Editor editor = sharedPreferences.edit();
-                    editor.putInt("user_id", userId);
-                    editor.putString("username", username);
-                    editor.apply();
-                } else {
-                    Toast.makeText(this, "No value for username", Toast.LENGTH_SHORT).show();
-                }
+                // Lưu ID, tên người dùng và mật khẩu vào SharedPreferences
+                SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putInt("user_id", userId);
+                editor.putString("username", username);
+                editor.putString("password", password); // Lưu mật khẩu
+                editor.apply();
 
                 String role = jsonObject.getString("role");
                 if (role.equals("admin")) {
@@ -88,7 +85,6 @@ public class LoginActivity extends AppCompatActivity implements UserView {
             Toast.makeText(this, "Error parsing feedback", Toast.LENGTH_SHORT).show();
         }
     }
-
 
     @Override
     public void onSignupSuccess(String response) {

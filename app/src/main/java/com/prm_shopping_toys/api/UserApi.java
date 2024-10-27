@@ -42,4 +42,12 @@ public interface UserApi {
             @Field("phone") String phone,
             @Field("birthday") String birthday
     );
+
+    @FormUrlEncoded
+    @POST("change_password.php")
+    Call<ResponseBody> changePassword(
+            @Field("user_id") int userId,
+            @Field("current_password") String currentPassword,
+            @Field("new_password") String newPassword
+    );
 }
