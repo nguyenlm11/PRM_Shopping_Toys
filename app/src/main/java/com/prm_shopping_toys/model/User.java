@@ -25,6 +25,11 @@ public class User {
         this.birthday = birthday;
     }
 
+    public User(int id, String password) {
+        this.id = id;
+        this.password = password;
+    }
+
     // Getters and Setters
     public int getId() {
         return id;

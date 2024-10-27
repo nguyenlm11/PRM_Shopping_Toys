@@ -78,5 +78,8 @@
         <activity
             android:name=".view.EditProfileActivity"
             android:exported="true" />
+        <activity
+            android:name=".view.ChangePasswordActivity"
+            android:exported="true" />
     </application>
 </manifest>
