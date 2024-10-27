@@ -72,6 +72,11 @@
         <activity
             android:name=".view.CartActivity"
             android:exported="true" />
-        <!-- <activity android:name=".view.QRCodeActivity" android:exported="true" /> -->
+        <activity
+            android:name=".view.UserInfoActivity"
+            android:exported="true" />
+        <activity
+            android:name=".view.EditProfileActivity"
+            android:exported="true" />
     </application>
 </manifest>
