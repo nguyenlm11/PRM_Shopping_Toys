@@ -3,8 +3,11 @@ package com.prm_shopping_toys.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.text.Html;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.PopupMenu;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
@@ -36,6 +39,9 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
     private ToyCustomerAdapter adapter;
     private List<Toy> toyList = new ArrayList<>();
     private Map<Integer, String> categoryMap = new HashMap<>();
+    private int selectedPriceFilter = -1; // -1: không lọc theo giá
+    private int selectedCategoryId = -1; // -1: không lọc theo danh mục
+    private int selectedMenuItemId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +59,7 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
         adapter = new ToyCustomerAdapter(this, toyList, categoryMap, toy -> addToCart(toy), toy -> showToyDetail(toy));
         binding.productRecyclerView.setAdapter(adapter);
 
+        // Lấy danh sách danh mục từ cơ sở dữ liệu
         categoryPresenter.getCategories();
 
         setupBottomNavigation();
@@ -73,6 +80,100 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
                 return true;
             }
         });
+
+        // Xử lý sự kiện bấm nút Filter
+        binding.btnFilter.setOnClickListener(view -> showFilterMenu(view));
+    }
+
+    // Hiển thị menu filter khi nhấn nút filter
+    private void showFilterMenu(View anchor) {
+        PopupMenu popup = new PopupMenu(this, anchor);
+        popup.getMenuInflater().inflate(R.menu.filter_menu, popup.getMenu());
+
+        // Thêm danh mục vào menu filter
+        for (Map.Entry<Integer, String> entry : categoryMap.entrySet()) {
+            popup.getMenu().add(R.id.filter_category_group, entry.getKey(), Menu.NONE, entry.getValue());
+        }
+
+        // Đặt màu đỏ cho mục đang chọn (Giá)
+        if (selectedPriceFilter != -1) {
+            if (selectedPriceFilter == 0) {
+                popup.getMenu().findItem(R.id.filter_price_below_100000).setTitle(Html.fromHtml("<font color='#FF0000'>" + getString(R.string.filter_price_below_100000) + "</font>"));
+            } else if (selectedPriceFilter == 1) {
+                popup.getMenu().findItem(R.id.filter_price_100000_350000).setTitle(Html.fromHtml("<font color='#FF0000'>" + getString(R.string.filter_price_100000_350000) + "</font>"));
+            } else if (selectedPriceFilter == 2) {
+                popup.getMenu().findItem(R.id.filter_price_350000_500000).setTitle(Html.fromHtml("<font color='#FF0000'>" + getString(R.string.filter_price_350000_500000) + "</font>"));
+            } else if (selectedPriceFilter == 3) {
+                popup.getMenu().findItem(R.id.filter_price_500000_1000000).setTitle(Html.fromHtml("<font color='#FF0000'>" + getString(R.string.filter_price_500000_1000000) + "</font>"));
+            } else if (selectedPriceFilter == 4) {
+                popup.getMenu().findItem(R.id.filter_price_above_1000000).setTitle(Html.fromHtml("<font color='#FF0000'>" + getString(R.string.filter_price_above_1000000) + "</font>"));
+            }
+        }
+
+        // Đặt màu đỏ cho danh mục đã chọn
+        if (selectedCategoryId != -1) {
+            popup.getMenu().findItem(selectedCategoryId).setTitle(Html.fromHtml("<font color='#FF0000'>" + categoryMap.get(selectedCategoryId) + "</font>"));
+        }
+
+        // Xử lý sự kiện chọn menu
+        popup.setOnMenuItemClickListener(item -> {
+            // Đặt lại màu sắc cho tất cả các mục
+            for (int i = 0; i < popup.getMenu().size(); i++) {
+                MenuItem menuItem = popup.getMenu().getItem(i);
+                menuItem.setTitle(Html.fromHtml(menuItem.getTitle().toString()));
+            }
+
+            if (item.getItemId() == R.id.filter_price_below_100000) {
+                selectedPriceFilter = 0;
+                filterToys();
+                return true;
+            } else if (item.getItemId() == R.id.filter_price_100000_350000) {
+                selectedPriceFilter = 1;
+                filterToys();
+                return true;
+            } else if (item.getItemId() == R.id.filter_price_350000_500000) {
+                selectedPriceFilter = 2;
+                filterToys();
+                return true;
+            } else if (item.getItemId() == R.id.filter_price_500000_1000000) {
+                selectedPriceFilter = 3;
+                filterToys();
+                return true;
+            } else if (item.getItemId() == R.id.filter_price_above_1000000) {
+                selectedPriceFilter = 4;
+                filterToys();
+                return true;
+            } else if (item.getItemId() == R.id.filter_clear) {
+                clearFilters();
+                return true;
+            } else {
+                if (categoryMap.containsKey(item.getItemId())) {
+                    selectedCategoryId = item.getItemId();
+                    filterToys();
+                    return true;
+                }
+                return false;
+            }
+        });
+        popup.show();
+    }
+
+    private void clearFilters() {
+        selectedPriceFilter = -1;
+        selectedCategoryId = -1;
+        loadAllToys();
+    }
+
+    private void filterToys() {
+        binding.searchProgressBar.setVisibility(View.VISIBLE);
+        binding.productRecyclerView.setVisibility(View.GONE);
+        toyList.clear();
+
+        new Handler().postDelayed(() -> {
+            toyPresenter.getToysByFilters(selectedPriceFilter, selectedCategoryId);
+            binding.searchProgressBar.setVisibility(View.GONE);
+            binding.productRecyclerView.setVisibility(View.VISIBLE);
+        }, 2000);
     }
 
     private void loadAllToys() {
@@ -201,7 +302,6 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
         binding.searchProgressBar.setVisibility(View.GONE);
         binding.noResultsTextView.setVisibility(View.VISIBLE);
         binding.noResultsTextView.setText("No results found.\nTry using more general keywords.");
-
     }
 
     @Override

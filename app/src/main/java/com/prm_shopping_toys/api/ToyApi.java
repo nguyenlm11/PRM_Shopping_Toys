@@ -53,4 +53,10 @@ public interface ToyApi {
             @Field("image") String imageUrl,
             @Field("category_id") int categoryId
     );
+
+    @GET("getToysByFilters.php")
+    Call<List<Toy>> getToysByFilters(
+            @Query("priceFilter") int priceFilter,
+            @Query("categoryId") int categoryId
+    );
 }

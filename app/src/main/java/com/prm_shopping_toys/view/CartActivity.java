@@ -156,7 +156,7 @@ public class CartActivity extends AppCompatActivity {
         DecimalFormat formatter = new DecimalFormat("#,###");
         String formattedPrice = formatter.format(totalPrice).replace(",", ".");
 
-        binding.totalToyCount.setText(totalToys + " Toys");
+        binding.totalToyCount.setText(totalToys + "");
         binding.totalPriceAmount.setText(formattedPrice + " VNĐ");
     }
 

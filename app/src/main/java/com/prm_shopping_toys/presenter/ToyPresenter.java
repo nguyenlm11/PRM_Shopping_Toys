@@ -115,4 +115,22 @@ public class ToyPresenter {
             }
         });
     }
+
+    public void getToysByFilters(int priceFilter, int categoryId) {
+        toyApi.getToysByFilters(priceFilter, categoryId).enqueue(new Callback<List<Toy>>() {
+            @Override
+            public void onResponse(Call<List<Toy>> call, Response<List<Toy>> response) {
+                if (response.isSuccessful() && response.body() != null) {
+                    view.onToysLoaded(response.body());
+                } else {
+                    view.onError("No toys found with the selected filters.");
+                }
+            }
+
+            @Override
+            public void onFailure(Call<List<Toy>> call, Throwable t) {
+                view.onError("Failed to load toys: " + t.getMessage());
+            }
+        });
+    }
 }
