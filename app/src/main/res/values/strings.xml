@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">PRM_Shopping_Toys</string>
+    <string name="filter_price_below_100000">Dưới 100,000</string>
+    <string name="filter_price_100000_350000">Từ 100,000 đến 350,000</string>
+    <string name="filter_price_350000_500000">Từ 350,000 đến 500,000</string>
+    <string name="filter_price_500000_1000000">Từ 500,000 đến 1,000,000</string>
+    <string name="filter_price_above_1000000">Trên 1,000,000</string>
 </resources>
