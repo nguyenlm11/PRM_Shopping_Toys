@@ -4,10 +4,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
-import android.util.Log;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.biometric.BiometricPrompt;
+import androidx.core.content.ContextCompat;
 
 import com.prm_shopping_toys.R;
 import com.prm_shopping_toys.databinding.ActivityLoginBinding;
@@ -19,6 +20,7 @@ public class LoginActivity extends AppCompatActivity implements UserView {
 
     private ActivityLoginBinding binding;
     private UserPresenter presenter;
+    private BiometricPrompt biometricPrompt;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,8 +29,10 @@ public class LoginActivity extends AppCompatActivity implements UserView {
         // Khởi tạo View Binding
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
         presenter = new UserPresenter(this, this);
+
+        // Khởi tạo BiometricPrompt
+        initBiometricPrompt();
 
         // Sự kiện click cho nút đăng nhập
         binding.loginButton.setOnClickListener(v -> {
@@ -43,6 +47,8 @@ public class LoginActivity extends AppCompatActivity implements UserView {
             startActivity(intent);
             overridePendingTransition(R.anim.slide_in_left, R.anim.slide_out_right);
         });
+
+        binding.fingerprintButton.setOnClickListener(v -> showBiometricPrompt());
     }
 
     @Override
@@ -62,6 +68,7 @@ public class LoginActivity extends AppCompatActivity implements UserView {
                 editor.putInt("user_id", userId);
                 editor.putString("username", username);
                 editor.putString("password", password); // Lưu mật khẩu
+                editor.putString("role", jsonObject.getString("role")); // Lưu vai trò người dùng
                 editor.apply();
 
                 String role = jsonObject.getString("role");
@@ -84,6 +91,54 @@ public class LoginActivity extends AppCompatActivity implements UserView {
             e.printStackTrace();
             Toast.makeText(this, "Error parsing feedback", Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void initBiometricPrompt() {
+        biometricPrompt = new BiometricPrompt(this,
+                ContextCompat.getMainExecutor(this),
+                new BiometricPrompt.AuthenticationCallback() {
+                    @Override
+                    public void onAuthenticationError(int errorCode, CharSequence errString) {
+                        Toast.makeText(LoginActivity.this, "Authentication error: " + errString, Toast.LENGTH_SHORT).show();
+                    }
+
+                    @Override
+                    public void onAuthenticationSucceeded(BiometricPrompt.AuthenticationResult result) {
+                        proceedToNextActivity();
+                    }
+
+                    @Override
+                    public void onAuthenticationFailed() {
+                        Toast.makeText(LoginActivity.this, "Authentication failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+    }
+
+    private void showBiometricPrompt() {
+        BiometricPrompt.PromptInfo promptInfo = new BiometricPrompt.PromptInfo.Builder()
+                .setTitle("Authentication required")
+                .setSubtitle("Log in using your fingerprint")
+                .setNegativeButtonText("Cancel")
+                .build();
+
+        biometricPrompt.authenticate(promptInfo);
+    }
+
+    private void proceedToNextActivity() {
+        SharedPreferences sharedPreferences = getSharedPreferences("user_prefs", Context.MODE_PRIVATE);
+        String role = sharedPreferences.getString("role", "customer");
+
+        // So sánh với dữ liệu đã lưu
+        Intent intent;
+        if ("admin".equals(role)) {
+            intent = new Intent(LoginActivity.this, ManageActivity.class);
+            Toast.makeText(this, "Welcome, Admin!", Toast.LENGTH_SHORT).show();
+        } else {
+            intent = new Intent(LoginActivity.this, HomeActivity.class);
+            Toast.makeText(this, "Welcome, Customer!", Toast.LENGTH_SHORT).show();
+        }
+        startActivity(intent);
+        finish();
     }
 
     @Override

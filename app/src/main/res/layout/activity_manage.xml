@@ -13,10 +13,10 @@
         android:layout_gravity="center"
         android:layout_marginBottom="40dp"
         android:gravity="center"
-        android:text="Admin Management Panel"
+        android:text="Dashboard"
         android:textColor="@color/priceColor"
         android:textSize="30sp"
-        android:textStyle="italic|bold" />
+        android:textStyle="bold" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -31,11 +31,11 @@
             android:layout_marginRight="10dp"
             android:background="@drawable/rounded_customer">
 
-            <TextView
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="Customer"
+                android:background="@drawable/ic_customer"
                 android:textColor="@android:color/white"
                 android:textSize="18sp" />
         </FrameLayout>
@@ -45,7 +45,7 @@
             android:id="@+id/manage_toy_view"
             android:layout_width="180dp"
             android:layout_height="180dp"
-            android:background="@drawable/rounded_toy">
+            android:background="@drawable/rounded_customer">
 
             <TextView
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/rounded_category">
+            android:background="@drawable/rounded_customer">
 
             <TextView
                 android:layout_width="match_parent"
@@ -86,7 +86,7 @@
             android:layout_width="180dp"
             android:layout_height="180dp"
             android:layout_marginRight="10dp"
-            android:background="@drawable/rounded_order">
+            android:background="@drawable/rounded_customer">
 
             <TextView
                 android:layout_width="match_parent"
