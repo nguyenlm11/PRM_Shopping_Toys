@@ -1,8 +1,6 @@
 package com.prm_shopping_toys.view;
 
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Html;
@@ -16,6 +14,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.appcompat.widget.SearchView;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.prm_shopping_toys.R;
@@ -28,6 +27,7 @@ import com.prm_shopping_toys.presenter.ToyPresenter;
 import com.prm_shopping_toys.presenter.UserPresenter;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -45,6 +45,17 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
     private int selectedCategoryId = -1; // -1: không lọc theo danh mục
     private int selectedMenuItemId = -1;
 
+    private ViewPager2 viewPager;
+    private Handler handler;
+    private Runnable runnable;
+    private List<Integer> images = Arrays.asList(
+            R.drawable.toyshopping_background,
+            R.drawable.image_1,
+            R.drawable.image_2,
+            R.drawable.image_3,
+            R.drawable.image_4
+    );
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,9 +72,27 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
         adapter = new ToyCustomerAdapter(this, toyList, categoryMap, toy -> addToCart(toy), toy -> showToyDetail(toy));
         binding.productRecyclerView.setAdapter(adapter);
 
+        viewPager = findViewById(R.id.viewPager);
+        ImageSliderAdapter adapter = new ImageSliderAdapter(images);
+        viewPager.setAdapter(adapter);
+
+        // Tự động chuyển đổi hình ảnh
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                if (viewPager.getCurrentItem() == images.size() - 1) {
+                    viewPager.setCurrentItem(0);
+                } else {
+                    viewPager.setCurrentItem(viewPager.getCurrentItem() + 1);
+                }
+                handler.postDelayed(this, 3000); // Chuyển đổi mỗi 3 giây
+            }
+        };
+        handler.postDelayed(runnable, 3000); // Bắt đầu chuyển đổi
+
         // Lấy danh sách danh mục từ cơ sở dữ liệu
         categoryPresenter.getCategories();
-
         setupBottomNavigation();
 
         binding.searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
@@ -82,8 +111,6 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
                 return true;
             }
         });
-
-        // Xử lý sự kiện bấm nút Filter
         binding.btnFilter.setOnClickListener(view -> showFilterMenu(view));
     }
 
@@ -230,29 +257,10 @@ public class HomeActivity extends AppCompatActivity implements ToyView, Category
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     return true;
-                } else if (itemId == R.id.navigation_order) {
-                    if (!HomeActivity.this.getClass().equals(OrderActivity.class)) {
-                        Intent intent = new Intent(HomeActivity.this, OrderActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }
-                    return true;
-                } else if (itemId == R.id.navigation_logout) {
-                    logoutUser();
-                    return true;
                 }
                 return false;
             }
         });
-    }
-
-    private void logoutUser() {
-        Toast.makeText(this, "Logout successfully", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(HomeActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
     }
 
     private void addToCart(Toy toy) {
