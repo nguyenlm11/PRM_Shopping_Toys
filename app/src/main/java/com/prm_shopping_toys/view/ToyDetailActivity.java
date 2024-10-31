@@ -31,12 +31,8 @@ public class ToyDetailActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
-        // Initialize View Binding
         binding = ActivityToyDetailBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-
-        // Initialize UserPresenter
         userPresenter = new UserPresenter(null, this);
 
         // Lấy dữ liệu truyền từ HomeActivity
@@ -56,7 +52,6 @@ public class ToyDetailActivity extends AppCompatActivity {
                     .error(R.drawable.placeholder_image)
                     .into(binding.toyDetailImage);
         }
-
         DecimalFormat formatter = new DecimalFormat("#,###");
         String formattedPrice = formatter.format(price).replace(",", ".");
         binding.toyDetailName.setText(name != null ? name : "No Name Available");
@@ -79,8 +74,6 @@ public class ToyDetailActivity extends AppCompatActivity {
 
         // Set up the add to cart button click listener
         binding.addToCartButton.setOnClickListener(v -> addToCart(userId, toyId, quantity));
-
-        // Set up BottomNavigationView
         setupBottomNavigation();
     }
 
@@ -116,7 +109,6 @@ public class ToyDetailActivity extends AppCompatActivity {
                 int itemId = item.getItemId();
 
                 if (itemId == R.id.navigation_home) {
-                    // Nếu người dùng chọn Home, load lại HomeActivity
                     if (!ToyDetailActivity.this.getClass().equals(HomeActivity.class)) {
                         Intent intent = new Intent(ToyDetailActivity.this, HomeActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
@@ -129,32 +121,12 @@ public class ToyDetailActivity extends AppCompatActivity {
                         Intent intent = new Intent(ToyDetailActivity.this, CartActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
-                    return true;
-                } else if (itemId == R.id.navigation_order) {
-                    if (!ToyDetailActivity.this.getClass().equals(OrderActivity.class)) {
-                        Intent intent = new Intent(ToyDetailActivity.this, OrderActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-//                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }
-                    return true;
-                } else if (itemId == R.id.navigation_logout) {
-                    logoutUser();
                     return true;
                 }
                 return false;
             }
         });
-    }
-
-    private void logoutUser() {
-        Toast.makeText(this, "Logout successfully", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(ToyDetailActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(intent);
-        finish();
     }
 
     @Override

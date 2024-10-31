@@ -24,7 +24,7 @@ import retrofit2.Response;
 
 public class UserInfoActivity extends AppCompatActivity {
 
-    private ActivityProfileBinding binding; // Khai báo View Binding
+    private ActivityProfileBinding binding;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,7 +34,6 @@ public class UserInfoActivity extends AppCompatActivity {
         binding = ActivityProfileBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
-        // Gán các View bằng View Binding
         binding.editButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -50,6 +49,13 @@ public class UserInfoActivity extends AppCompatActivity {
                 Intent intent = new Intent(UserInfoActivity.this, ChangePasswordActivity.class);
                 startActivity(intent);
                 overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
+            }
+        });
+
+        binding.navigationLogout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                logoutUser();
             }
         });
 
@@ -128,17 +134,6 @@ public class UserInfoActivity extends AppCompatActivity {
                         overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
                     }
                     return true;
-                } else if (itemId == R.id.navigation_order) {
-                    if (!UserInfoActivity.this.getClass().equals(OrderActivity.class)) {
-                        Intent intent = new Intent(UserInfoActivity.this, OrderActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
-                    }
-                    return true;
-                } else if (itemId == R.id.navigation_logout) {
-                    logoutUser();
-                    return true;
                 }
                 return false;
             }
@@ -146,11 +141,15 @@ public class UserInfoActivity extends AppCompatActivity {
     }
 
     private void logoutUser() {
-        Toast.makeText(this, "Logout successfully", Toast.LENGTH_SHORT).show();
+        SharedPreferences sharedPreferences = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.clear();
+        editor.apply();
         Intent intent = new Intent(UserInfoActivity.this, LoginActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         startActivity(intent);
         finish();
+        overridePendingTransition(R.anim.slide_in_right, R.anim.slide_out_left);
     }
 
     private int getCurrentUserId() {
